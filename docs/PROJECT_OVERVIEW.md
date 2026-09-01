@@ -67,8 +67,8 @@ Rather than building only a traditional CRUD application, it focuses on a realis
 ┌─────────────────────┐
 │    Web Dashboard    │
 │                     │
-│   Device Status     │
-│   Health Scores     │
+│    Device Status    │
+│    Health Scores    │
 │       Alerts        │
 │  Recent Telemetry   │
 └─────────────────────┘
@@ -76,39 +76,37 @@ Rather than building only a traditional CRUD application, it focuses on a realis
 ## 5. System Architecture
 
 --FastAPI Backend
-Registering devices.
-Receiving telemetry.
-Validating incoming data.
-Calculating health scores.
-Detecting threshold violations.
-Updating device status.
-Returning telemetry history.
-Returning recent alerts.
-Providing system statistics.
-Exporting telemetry as CSV.
-SQLite Database
+    Registering devices.
+    Receiving telemetry.
+    Validating incoming data.
+    Calculating health scores.
+    Detecting threshold violations.
+    Updating device status.
+    Returning telemetry history.
+    Returning recent alerts.
+    Providing system statistics.
+    Exporting telemetry as CSV.
+    SQLite Database
 
 --SQLite provides storage for:
-Registered devices.
-Telemetry readings.
-Generated alerts.
+    Registered devices.
+    Telemetry readings.
+    Generated alerts.
 
+--Device Simulator:
+    The simulator acts as a virtual edge device.
 
-Device Simulator:
-The simulator acts as a virtual edge device.
+    It generates telemetry readings and sends them to the backend at regular intervals. This allows the complete system to be demonstrated without requiring physical IoT hardware.
 
-It generates telemetry readings and sends them to the backend at regular intervals. This allows the complete system to be demonstrated without requiring physical IoT hardware.
-
-Web Dashboard:
-The dashboard provides a simple monitoring interface showing:
-
-Registered devices.
-Online devices.
-Open alerts.
-Average health.
-Device health scores.
-Recent alerts.
-Recent telemetry readings.
+--Web Dashboard:
+    The dashboard provides a simple monitoring interface showing:
+    Registered devices.
+    Online devices.
+    Open alerts.
+    Average health.
+    Device health scores.
+    Recent alerts.
+    Recent telemetry readings.
 
 
 ## 6. Health Monitoring
@@ -118,65 +116,63 @@ Each telemetry reading is evaluated using a basic health-scoring model.
 The initial score is: 100
 
 The score is reduced when abnormal operating conditions are detected, including:
+    High temperature.
+    High humidity.
+    Voltage outside the expected range.
+    High current.
+    Weak signal strength.
 
-High temperature.
-High humidity.
-Voltage outside the expected range.
-High current.
-Weak signal strength.
-
-The resulting score is stored with the telemetry record and displayed on the dashboard.
 
 ## 7. Alert System
 
 EdgePulse generates alerts when selected telemetry values cross defined thresholds.
 
 Current alert conditions include:
-Condition	Severity
-High temperature	Warning
-Voltage outside range	Critical
-High current	Warning
-Weak signal	Warning
+    Condition	Severity
+    High temperature	Warning
+    Voltage outside range	Critical
+    High current	Warning
+    Weak signal	Warning
 
 Alerts are stored in the database and displayed in the dashboard.
 
 ## 8. REST API
 
 The current API includes endpoints for:
-Health checking.
-Device registration.
-Device listing.
-Telemetry ingestion.
-Telemetry history.
-Recent alerts.
-System statistics.
-CSV telemetry export.
+    Health checking.
+    Device registration.
+    Device listing.
+    Telemetry ingestion.
+    Telemetry history.
+    Recent alerts.
+    System statistics.
+    CSV telemetry export.
 
 
 ## 9. Technology Stack
 
 Backend:
-Python
-FastAPI
-Pydantic
+    Python
+    FastAPI
+    Pydantic
 
 Database:
-SQLite
+    SQLite
 
 Frontend:
-HTML
-CSS
-JavaScript
+    HTML
+    CSS
+    JavaScript
 
 Testing:
-Pytest
-Simulation
-Python Requests
+    Pytest
+    Simulation
+    Python Requests
 
 Development:
-Git
-GitHub
-Visual Studio Code
+    Git
+    GitHub
+    Visual Studio Code
 
 
 ## 10. Current Project Status
@@ -184,16 +180,16 @@ Visual Studio Code
 The initial EdgePulse milestone is functional.
 
 The current implementation supports:
-Device registration.
-REST telemetry ingestion.
-Persistent SQLite storage.
-Health scoring.
-Threshold-based alerts.
-Device online status.
-Recent telemetry display.
-CSV export.
-Device simulation.
-Web dashboard.
-Automated testing.
+    Device registration.
+    REST telemetry ingestion.
+    Persistent SQLite storage.
+    Health scoring.
+    Threshold-based alerts.
+    Device online status.
+    Recent telemetry display.
+    CSV export.
+    Device simulation.
+    Web dashboard.
+    Automated testing.
 
 The project is intentionally being developed in small milestones so that each stage remains understandable, testable, and demonstrable.

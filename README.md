@@ -1,59 +1,160 @@
 # EdgePulse
 
-EdgePulse is a Python-based IoT device health and telemetry platform designed to monitor connected edge devices, evaluate their current health, and identify abnormal operating conditions.
+## Device Health & Telemetry Monitoring Platform
 
-My project simulates the flow of telemetry from edge devices to a backend service, where the data is stored, evaluated, and presented through a lightweight monitoring dashboard.
+EdgePulse is a lightweight device monitoring platform built with **FastAPI, SQLite, HTML, CSS, and JavaScript**.
 
-## Why I Built It
+It collects telemetry from connected edge devices, evaluates device health, detects abnormal operating conditions, generates alerts, and presents the latest device state through a clean web dashboard.
 
-I wanted to connect my Electronics and Telecommunication background with the Python and backend development skills I have been building.
-
-Rather than creating another basic CRUD application, I wanted to build something closer to a real IoT monitoring workflow:
-
-Device → Telemetry → Backend → Database → Health Evaluation → Alerts → User Dashboard
-
-This gives the project a practical connection between embedded systems, IoT concepts, backend development, and data monitoring.
 
 ## Features
 
 - Device registration and management
-- REST API for telemetry ingestion
-- SQLite-based data persistence
-- Device health scoring
-- Threshold-based alert detection
-- Online and offline device status
-- Recent telemetry readings
-- CSV data export
-- Device telemetry simulator
-- Responsive monitoring dashboard
-- Automated tests
+- Real-time-style device health dashboard
+- Telemetry ingestion through REST APIs
+- Automatic health-score calculation
+- Threshold-based alert generation
+- Device online/offline status
+- Recent telemetry visualization
+- Recent alerts panel
+- CSV telemetry export
+- Automatic dashboard refresh
+- Built-in telemetry simulator
+- SQLite database for local persistence
+- Health evaluation logic with automated tests
 
-## Technology Stack I used
 
-**Backend**
-- Python
-- FastAPI
-- SQLite
-
-**Frontend**
-- HTML
-- CSS
-- JavaScript
-
-**Testing & Simulation**
-- Pytest
-- Requests
-- Python-based device simulator
-
-## Project Structure
+## System Architecture
 
 ```text
+                    ┌───────────────────────┐
+                    │     Edge Devices      │
+                    │ Sensors / Controllers │
+                    └──────────┬────────────┘
+                               │
+                               │ Telemetry
+                               ▼
+                    ┌───────────────────────┐
+                    │     FastAPI API       │
+                    │                       │
+                    │   Device Management   │
+                    │  Telemetry Ingestion  │
+                    │   Health Evaluation   │
+                    │   Alert Generation    │
+                    └──────────┬────────────┘
+                               │
+                         ┌─────┴─────┐
+                         ▼           ▼
+                  ┌────────────┐ ┌────────────┐
+                  │  SQLite DB │ │  REST API  │
+                  └────────────┘ └──────┬─────┘
+                                        │
+                                        ▼
+                              ┌──────────────────┐
+                              │   Web Dashboard  │
+                              │    HTML/CSS/JS   │
+                              └──────────────────┘
+
+## Health Monitoring
+
+EdgePulse evaluates incoming telemetry and produces a device health score.
+
+The monitoring system considers conditions such as:
+Temperature
+Voltage
+Current
+Signal strength
+Other configured operating thresholds
+
+## Dashboard
+
+The dashboard provides an operational overview of the device fleet.
+
+It displays:
+Registered devices
+Devices currently online
+Open alerts
+Average fleet health
+Individual device health
+Device location and status
+Recent alerts
+Recent telemetry readings
+
+## REST API
+
+Devices
+    GET  /api/devices
+    POST /api/devices
+
+Telemetry
+    POST /api/devices/{device_id}/telemetry
+    GET  /api/devices/{device_id}/telemetry
+
+Alerts
+    GET /api/alerts
+
+Statistics
+    GET /api/stats
+
+Export
+    GET /api/export
+
+## Project Structure   
+
 EdgePulse/
-├── app/                    # FastAPI backend
-├── frontend/               # Dashboard interface
-├── simulator/              # Simulated IoT devices
-├── tests/                  # Automated tests
-├── docs/                   # Project documentation
-├── requirements.txt        # Python dependencies
-├── README.md               # Project documentation
-└── .gitignore
+│
+├── app/
+│   ├── main.py
+│   ├── health.py
+│   └── __init__.py
+│
+├── frontend/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+│
+├── simulator/
+│   └── device_simulator.py
+│
+├── tests/
+│   └── test_health.py
+│
+├── docs/
+│   ├── PROJECT_OVERVIEW.md
+│   ├── dashboard.png
+│   └── telemetry.png
+│
+├── README.md
+├── requirements.txt
+└── .gitignore   
+
+## Running Locally
+
+1. Clone the repository
+    git clone https://github.com/Omi2413/EdgePulse.git
+    cd EdgePulse
+
+2. Create a virtual environment
+    Windows:
+
+    python -m venv .venv
+    .venv\Scripts\activate
+
+3. Install dependencies
+    pip install -r requirements.txt
+
+4. Start the application
+    uvicorn app.main:app --reload
+
+5. Open the dashboard
+    http://127.0.0.1:8000/
+
+API documentation is available through FastAPI's interactive documentation:
+    http://127.0.0.1:8000/docs
+ 
+
+## Dashboard Preview
+![EdgePulse Dashboard](docs/dashboard.png)
+
+## Telemetry Details
+![Telemetry Details](docs/telemetry.png)
