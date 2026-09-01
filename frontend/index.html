@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>EdgePulse | Device Health</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="mark">EP</span>
+    <div><strong>EdgePulse</strong><small>Device Health & Telemetry</small></div>
+  </div>
+  <div class="tools">
+    <span class="live"></span><span>System monitor</span>
+    <button id="export" class="btn dark">Export CSV</button>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div>
+      <label>EDGE OPERATIONS</label>
+      <h1>Device health at a glance.</h1>
+      <p>Monitor telemetry, identify abnormal readings, and keep track of connected edge devices.</p>
+    </div>
+    <button id="add" class="btn">Add device</button>
+  </section>
+
+  <section class="stats">
+    <div><span>Registered devices</span><b id="devices">0</b></div>
+    <div><span>Online now</span><b id="online">0</b></div>
+    <div><span>Open alerts</span><b id="alerts">0</b></div>
+    <div><span>Average health</span><b id="health">0%</b></div>
+  </section>
+
+  <section class="columns">
+    <div class="panel">
+      <div class="head">
+        <div><h2>Device fleet</h2><p>Latest reported state</p></div>
+        <small id="refresh"></small>
+      </div>
+      <div id="fleet"></div>
+    </div>
+
+    <aside class="panel">
+      <div class="head"><div><h2>Recent alerts</h2><p>Threshold events</p></div></div>
+      <div id="alertList"></div>
+    </aside>
+  </section>
+
+  <section class="panel detail">
+    <div class="head">
+      <div>
+        <h2 id="title">Telemetry details</h2>
+        <p id="subtitle">Select a device to view recent readings.</p>
+      </div>
+    </div>
+    <div id="telemetry" class="readings"></div>
+  </section>
+</main>
+
+<div id="modal" class="modal hidden">
+  <div class="modalbox">
+    <div class="head">
+      <h2>Add device</h2><button id="close">×</button>
+    </div>
+    <form id="form">
+      <label>Device name<input id="name" required placeholder="Pump Controller 01"></label>
+      <label>Location<input id="location" placeholder="Greenhouse A"></label>
+      <button class="btn">Register device</button>
+    </form>
+  </div>
+</div>
+<script src="/static/app.js"></script>
+</body>
+</html>
