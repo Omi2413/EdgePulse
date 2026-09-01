@@ -72,58 +72,56 @@ Rather than building only a traditional CRUD application, it focuses on a realis
 │       Alerts        │
 │  Recent Telemetry   │
 └─────────────────────┘
-
-## 5. System Architecture
-
---FastAPI Backend
-    Registering devices.
-    Receiving telemetry.
-    Validating incoming data.
-    Calculating health scores.
-    Detecting threshold violations.
-    Updating device status.
-    Returning telemetry history.
-    Returning recent alerts.
-    Providing system statistics.
-    Exporting telemetry as CSV.
-    SQLite Database
-
---SQLite provides storage for:
-    Registered devices.
-    Telemetry readings.
-    Generated alerts.
-
---Device Simulator:
-    The simulator acts as a virtual edge device.
-
-    It generates telemetry readings and sends them to the backend at regular intervals. This allows the complete system to be demonstrated without requiring physical IoT hardware.
-
---Web Dashboard:
-    The dashboard provides a simple monitoring interface showing:
-    Registered devices.
-    Online devices.
-    Open alerts.
-    Average health.
-    Device health scores.
-    Recent alerts.
-    Recent telemetry readings.
+'''
 
 
-## 6. Health Monitoring
+### Architecture Components
 
-Each telemetry reading is evaluated using a basic health-scoring model.
-
-The initial score is: 100
-
-The score is reduced when abnormal operating conditions are detected, including:
-    High temperature.
-    High humidity.
-    Voltage outside the expected range.
-    High current.
-    Weak signal strength.
+- **Edge Devices** – Sensors and controllers generate device telemetry.
+- **FastAPI Backend** – Receives telemetry, manages devices, evaluates health, and generates alerts.
+- **SQLite Database** – Stores device information and telemetry data.
+- **REST API** – Provides structured endpoints for device and telemetry operations.
+- **Web Dashboard** – Presents device health, telemetry, alerts, and system status through a browser interface.
 
 
-## 7. Alert System
+## Health Monitoring
+
+EdgePulse evaluates incoming telemetry and generates a device health score based on configured operating conditions.
+
+The monitoring system considers:
+- Temperature
+- Voltage
+- Current
+- Signal strength
+- Configured operating thresholds
+
+
+## Dashboard
+
+The EdgePulse dashboard provides an operational overview of connected devices.
+
+It displays:
+- Registered devices
+- Online/offline status
+- Device health
+- Open alerts
+- Average fleet health
+- Recent telemetry
+- Recent alerts
+
+![EdgePulse Dashboard](./docs/dashboard.png)
+
+
+## Telemetry
+
+EdgePulse provides a telemetry view for monitoring recent device readings and operating conditions.
+
+The telemetry interface helps visualize device data and identify abnormal operating conditions.
+
+![Telemetry Details](./docs/telemetry.png)
+
+
+## Alert System
 
 EdgePulse generates alerts when selected telemetry values cross defined thresholds.
 
@@ -136,7 +134,8 @@ Current alert conditions include:
 
 Alerts are stored in the database and displayed in the dashboard.
 
-## 8. REST API
+
+## REST API
 
 The current API includes endpoints for:
     Health checking.
@@ -149,7 +148,7 @@ The current API includes endpoints for:
     CSV telemetry export.
 
 
-## 9. Technology Stack
+## Technology Stack
 
 Backend:
     Python
@@ -175,7 +174,7 @@ Development:
     Visual Studio Code
 
 
-## 10. Current Project Status
+## Current Project Status
 
 The initial EdgePulse milestone is functional.
 
@@ -192,4 +191,3 @@ The current implementation supports:
     Web dashboard.
     Automated testing.
 
-The project is intentionally being developed in small milestones so that each stage remains understandable, testable, and demonstrable.
