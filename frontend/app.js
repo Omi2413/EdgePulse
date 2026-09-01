@@ -2,7 +2,6 @@ const $=id=>document.getElementById(id);
 async function api(url,options){const r=await fetch(url,options);if(!r.ok)throw Error(await r.text());return r.json()}
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const grade=n=>n>=80?'good':n>=55?'warn':'bad';
-
 async function load(){
   const [d,a,s]=await Promise.all([api('/api/devices'),api('/api/alerts'),api('/api/stats')]);
   $('devices').textContent=s.devices;$('online').textContent=s.online;
@@ -20,7 +19,6 @@ async function load(){
     <strong>${esc(x.device_name)}</strong> — ${esc(x.message)}<br>
     <small>${new Date(x.timestamp).toLocaleString()}</small></div>`).join(''):'<p>No alerts recorded.</p>';
 }
-
 async function selectDevice(id,name){
   $('title').textContent=name;$('subtitle').textContent='Recent telemetry readings';
   const rows=await api(`/api/devices/${id}/telemetry?limit=5`);
@@ -32,7 +30,6 @@ async function selectDevice(id,name){
     <strong>${x.signal_strength} dBm</strong><span>Signal</span>
     <strong>${x.health_score}%</strong><span>Health</span></div>`).join(''):'<p>No telemetry received yet.</p>';
 }
-
 $('add').onclick=()=>$('modal').classList.remove('hidden');
 $('close').onclick=()=>$('modal').classList.add('hidden');
 $('export').onclick=()=>location.href='/api/export';

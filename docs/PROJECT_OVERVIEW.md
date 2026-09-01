@@ -1,52 +1,199 @@
 # EdgePulse — Project Overview
 
-## One-line description
+## 1. Project Summary
 
-**EdgePulse is a Python-based IoT device health monitor that turns simulated sensor telemetry into health scores, alerts, and an operations dashboard.**
+EdgePulse is a Python-based IoT device health and telemetry monitoring platform.
 
-## Portfolio description
+My system simulates edge devices sending telemetry data to a FastAPI backend. The backend validates and processes incoming readings, calculates device health scores, detects abnormal conditions, stores the data in SQLite, and presents the latest device state through a lightweight web dashboard.
 
-EdgePulse demonstrates a complete small-scale telemetry workflow: simulated edge devices send sensor readings to a FastAPI backend, the backend validates and evaluates the data, SQLite stores the results, and a JavaScript dashboard presents device health and alert activity.
+The project demonstrates the complete flow:
+**Device → Telemetry → REST API → Processing → Database → Alerts → Dashboard**
 
-## Problem
 
-Raw device telemetry is difficult to use when it is viewed only as individual sensor values. An operations view needs to answer simple questions quickly:
+## 2. Motivation
 
-- Which devices are reporting?
-- Which devices are healthy?
-- Has something abnormal happened?
-- What were the latest readings?
-- Can the collected data be exported for analysis?
+EdgePulse was developed to connect embedded and IoT concepts with backend software development.
 
-EdgePulse turns those raw readings into a compact monitoring workflow.
+Rather than building only a traditional CRUD application, it focuses on a realistic IoT monitoring workflow where devices continuously produce operational data and the backend converts that data into useful health and alert information.
 
-## Technical highlights
 
-- REST API design with FastAPI
-- Pydantic request validation
-- SQLite persistence
-- Rule-based health scoring
-- Threshold-based alert generation
-- Simulated multi-device telemetry
-- Responsive HTML/CSS/JavaScript dashboard
-- CSV data export
-- Automated tests
+## 3. Objectives
 
-## Current limitation
+- Build a practical IoT telemetry backend using Python.
+- Implement REST APIs for device and telemetry management.
+- Store telemetry and alert data persistently.
+- Evaluate device health using health-scoring logic.
+- Detect abnormal device conditions using thresholds.
+- Provide a simple monitoring dashboard.
+- Simulate edge-device telemetry without requiring physical hardware.
+- Maintain automated tests for core functionality.
+- Develop the project incrementally using Git.
 
-The prototype currently uses HTTP telemetry and a local simulator. MQTT, WebSocket updates, configurable thresholds, and stronger device heartbeat/offline detection are planned rather than presented as completed functionality.
 
-## Skills demonstrated
+## 4. System Architecture
 
-**Backend:** Python, FastAPI, REST APIs, validation, SQLite
+```text
+┌─────────────────────┐
+│   Device Simulator  │
+│                     │
+│     Temperature     │
+│      Humidity       │
+│      Voltage        │
+│      Current        │
+│   Signal Strength   │
+└──────────┬──────────┘
+           │
+           │ REST Telemetry
+           ▼
+┌─────────────────────┐
+│   FastAPI Backend   │
+│                     │
+│     Validation      │
+│   Health Scoring    │
+│   Alert Detection   │
+│  Device Management  │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│       SQLite        │
+│                     │
+│       Devices       │
+│      Telemetry      │
+│       Alerts        │
+└──────────┬──────────┘
+           │
+           ▼
+┌─────────────────────┐
+│    Web Dashboard    │
+│                     │
+│   Device Status     │
+│   Health Scores     │
+│       Alerts        │
+│  Recent Telemetry   │
+└─────────────────────┘
 
-**IoT:** telemetry modelling, device simulation, threshold monitoring, signal/operating-condition handling
+## 5. System Architecture
 
-**Frontend:** HTML, CSS, JavaScript, dashboard design
+--FastAPI Backend
+Registering devices.
+Receiving telemetry.
+Validating incoming data.
+Calculating health scores.
+Detecting threshold violations.
+Updating device status.
+Returning telemetry history.
+Returning recent alerts.
+Providing system statistics.
+Exporting telemetry as CSV.
+SQLite Database
 
-**Engineering practice:** testing, documentation, incremental development, Git workflow
+--SQLite provides storage for:
+Registered devices.
+Telemetry readings.
+Generated alerts.
 
-## Resume-style entry
 
-**EdgePulse — IoT Device Health & Telemetry Monitor**  
-Built a Python/FastAPI monitoring platform that simulates multiple IoT devices, ingests and stores telemetry in SQLite, calculates device health scores, generates threshold-based alerts, and presents fleet status through a responsive web dashboard.
+Device Simulator:
+The simulator acts as a virtual edge device.
+
+It generates telemetry readings and sends them to the backend at regular intervals. This allows the complete system to be demonstrated without requiring physical IoT hardware.
+
+Web Dashboard:
+The dashboard provides a simple monitoring interface showing:
+
+Registered devices.
+Online devices.
+Open alerts.
+Average health.
+Device health scores.
+Recent alerts.
+Recent telemetry readings.
+
+
+## 6. Health Monitoring
+
+Each telemetry reading is evaluated using a basic health-scoring model.
+
+The initial score is: 100
+
+The score is reduced when abnormal operating conditions are detected, including:
+
+High temperature.
+High humidity.
+Voltage outside the expected range.
+High current.
+Weak signal strength.
+
+The resulting score is stored with the telemetry record and displayed on the dashboard.
+
+## 7. Alert System
+
+EdgePulse generates alerts when selected telemetry values cross defined thresholds.
+
+Current alert conditions include:
+Condition	Severity
+High temperature	Warning
+Voltage outside range	Critical
+High current	Warning
+Weak signal	Warning
+
+Alerts are stored in the database and displayed in the dashboard.
+
+## 8. REST API
+
+The current API includes endpoints for:
+Health checking.
+Device registration.
+Device listing.
+Telemetry ingestion.
+Telemetry history.
+Recent alerts.
+System statistics.
+CSV telemetry export.
+
+
+## 9. Technology Stack
+
+Backend:
+Python
+FastAPI
+Pydantic
+
+Database:
+SQLite
+
+Frontend:
+HTML
+CSS
+JavaScript
+
+Testing:
+Pytest
+Simulation
+Python Requests
+
+Development:
+Git
+GitHub
+Visual Studio Code
+
+
+## 10. Current Project Status
+
+The initial EdgePulse milestone is functional.
+
+The current implementation supports:
+Device registration.
+REST telemetry ingestion.
+Persistent SQLite storage.
+Health scoring.
+Threshold-based alerts.
+Device online status.
+Recent telemetry display.
+CSV export.
+Device simulation.
+Web dashboard.
+Automated testing.
+
+The project is intentionally being developed in small milestones so that each stage remains understandable, testable, and demonstrable.
