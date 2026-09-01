@@ -109,16 +109,12 @@ It displays:
 - Recent telemetry
 - Recent alerts
 
-![EdgePulse Dashboard](https://github.com/Omi2413/EdgePulse/blob/main/docs/dashboard.png?raw=true)
-
 
 ## Telemetry
 
 EdgePulse provides a telemetry view for monitoring recent device readings and operating conditions.
 
 The telemetry interface helps visualize device data and identify abnormal operating conditions.
-
-![Telemetry Details](https://github.com/Omi2413/EdgePulse/blob/main/docs/telemetry.png?raw=true)
 
 
 ## Alert System
@@ -190,4 +186,3 @@ The current implementation supports:
     Device simulation.
     Web dashboard.
     Automated testing.
-
